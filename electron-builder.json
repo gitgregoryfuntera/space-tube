@@ -1,5 +1,5 @@
 {
-  "productName": "angular-electron",
+  "productName": "SpaceTube",
   "directories": {
     "output": "release/"
   },
@@ -26,7 +26,7 @@
     ]
   },
   "mac": {
-    "icon": "dist",
+    "icon": "src/assets/icons/icon_512@1x.png",
     "target": [
       "dmg"
     ]

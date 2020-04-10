@@ -6,12 +6,17 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule'
   },
   {
     path: '**',
     component: PageNotFoundComponent
-  }
+  }, 
+
 ];
 
 @NgModule({

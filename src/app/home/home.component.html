@@ -1,5 +1,35 @@
-<div class="container">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
-  </h1>
+<div class="container mt-2 mb-2" [style.opacity]="opacityValue">
+  <div class="row">
+    <div class="col-3">
+      <h2>Opacity: </h2>
+    </div>
+    <div class="col-6 d-inline-flex">
+      <button class="btn btn-primary mr-2"
+        (click)="onChangeOpacity(1)">
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+      </button>
+      <input
+        [style.width.px]="60"
+        class="form-control"
+        type="number"
+        [value]="opacityValue"
+        [(ngModel)]="opacityValue"
+        name="opacity"
+        readonly
+      />
+      <button class="btn btn-primary ml-2"
+        (click)="onChangeOpacity(0)">
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div>
+  <webview 
+    id="foo" 
+    src="https://www.youtube.com" 
+    style="display:inline-flex; width:570px; height:470px"
+    allowtransparency
+    nodeintegration>
+  </webview>
 </div>

@@ -1,27 +1,40 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, Menu, Tray, nativeImage, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
 let win: BrowserWindow = null;
+let tray: Tray = null;
+
 const args = process.argv.slice(1),
     serve = args.some(val => val === '--serve');
 
 function createWindow(): BrowserWindow {
-
-  const electronScreen = screen;
-  const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
   // Create the browser window.
+  app.dock.hide();
+  const display = screen.getPrimaryDisplay();
+  const width = display.bounds.width;
   win = new BrowserWindow({
-    x: 0,
+    x: width - 570,
     y: 0,
-    width: size.width,
-    height: size.height,
+    height: 500,
+    width: 570,
+    transparent: true,
+    frame: false,
     webPreferences: {
+      webviewTag: true,
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
     },
   });
+
+  win.setMenuBarVisibility(false);
+  win.setIgnoreMouseEvents(false);
+  win.setAlwaysOnTop(true, 'floating');
+  win.setVisibleOnAllWorkspaces(true);
+  win.setFullScreenable(false);
+
+  app.dock.show();
+
 
   if (serve) {
     require('electron-reload')(__dirname, {
@@ -46,17 +59,51 @@ function createWindow(): BrowserWindow {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null;
+    tray = null
   });
 
   return win;
 }
 
-try {
 
+function createTray(): void {
+  let imagePath = path.join(__dirname, 'dist/assets/settingsTemplate.png');
+  let appIcon = nativeImage.createFromPath(imagePath);
+  tray = new Tray(appIcon);
+  console.log(tray);
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Ignore Mouse Events',
+      submenu: [
+        {
+          label: 'No',
+          type: 'radio',
+          checked: true,
+          click: () =>  win.setIgnoreMouseEvents(false)
+        },
+        {
+          label: 'Yes', 
+          type: 'radio',
+          click: () => win.setIgnoreMouseEvents(true)
+        }
+      ]
+    }, 
+    {
+      label: 'Close',
+      click: () => {app.quit()}
+    }
+  ])
+  tray.setContextMenu(contextMenu);
+}
+
+
+try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', createWindow);
+  app.on('ready', () => {
+    createTray();
+    createWindow();
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {

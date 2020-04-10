@@ -1,21 +1,7 @@
 {
-  "name": "angular-electron",
+  "name": "SpaceTube",
   "version": "7.0.1",
   "description": "Angular 9 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
-  "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
-  },
-  "keywords": [
-    "angular",
-    "angular 9",
-    "electron",
-    "typescript",
-    "eslint",
-    "spectron",
-    "sass"
-  ],
   "main": "main.js",
   "private": true,
   "scripts": {
@@ -90,5 +76,14 @@
   },
   "engines": {
     "node": ">=10.13.0"
+  },
+  "dependencies": {
+    "@angular/animations": "9.1.0",
+    "@angular/localize": "9.1.0",
+    "@angular/youtube-player": "9.2.0",
+    "bootstrap-icons": "1.0.0-alpha3",
+    "ngx-bootstrap": "5.5.0",
+    "ngx-electron": "2.2.0",
+    "ngx-infinite-scroll": "8.0.1"
   }
 }
