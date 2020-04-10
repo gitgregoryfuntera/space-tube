@@ -2,6 +2,7 @@
 
 A transparent youtube player that can be player on top of other applications.
 
+![](https://media.giphy.com/media/TjpQWmYQCcAr2FtIrw/giphy.gif)
 
 ## Features
 1. Tray icon to toggle ignore mouse events.
